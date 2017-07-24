@@ -64,7 +64,7 @@ module Deliver
       
       # Mac
       MAC = "Mac"
-
+      
       # Google Pixel
       GOOGLE_PIXEL = "GooglePixel"
     end
