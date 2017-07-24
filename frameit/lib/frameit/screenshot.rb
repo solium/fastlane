@@ -49,6 +49,8 @@ module Frameit
         return 'iPad Pro'
       when sizes::MAC
         return 'MacBook'
+      when sizes::GOOGLE_PIXEL
+        return 'GooglePixel'
       else
         UI.error("Unknown device type for size #{@screen_size} for path '#{path}'")
       end
