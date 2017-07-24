@@ -68,6 +68,9 @@ module Deliver
 
       # Mac
       MAC = "Mac"
+
+      # Google Pixel
+      GOOGLE_PIXEL = "GooglePixel"
     end
 
     # @return [Deliver::ScreenSize] the screen size (device type)
@@ -119,7 +122,8 @@ module Deliver
         ScreenSize::MAC => "desktop",
         ScreenSize::IOS_APPLE_WATCH => "watch",
         ScreenSize::IOS_APPLE_WATCH_SERIES4 => "watchSeries4",
-        ScreenSize::APPLE_TV => "appleTV"
+        ScreenSize::APPLE_TV => "appleTV",
+        ScreenSize::GOOGLE_PIXEL => "GooglePixel"
       }
       return matching[self.screen_size]
     end
@@ -153,7 +157,8 @@ module Deliver
         ScreenSize::MAC => "Mac",
         ScreenSize::IOS_APPLE_WATCH => "Watch",
         ScreenSize::IOS_APPLE_WATCH_SERIES4 => "Watch Series4",
-        ScreenSize::APPLE_TV => "Apple TV"
+        ScreenSize::APPLE_TV => "Apple TV",
+        ScreenSize::GOOGLE_PIXEL => "GooglePixel"
       }
       return matching[self.screen_size]
     end
@@ -309,6 +314,9 @@ module Deliver
         ScreenSize::APPLE_TV => [
           [1920, 1080],
           [3840, 2160]
+        ],
+        ScreenSize::GOOGLE_PIXEL => [
+          [1080, 1920]
         ]
       }
     end
@@ -332,6 +340,8 @@ module Deliver
       size = FastImage.size(path)
 
       UI.user_error!("Could not find or parse file at path '#{path}'") if size.nil? || size.count == 0
+
+      return "GooglePixel" if path.include? "GooglePixel"
 
       # iMessage screenshots have same resolution as app screenshots so we need to distinguish them
       path_component = Pathname.new(path).each_filename.to_a[-3]
